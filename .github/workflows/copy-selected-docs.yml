@@ -17,12 +17,13 @@ jobs:
       - name: Checkout target repository
         uses: actions/checkout@v4
 
-      - name: Copy selected HTML files from my_doc
+      - name: Clone source repository and copy selected files
         run: |
           set -euo pipefail
-          curl -fsSL "https://raw.githubusercontent.com/alharbikh/my_doc/main/employee_warning_form_v2.html" -o employee_warning_form_v2.html
-          curl -fsSL "https://raw.githubusercontent.com/alharbikh/my_doc/main/forms_viewer_print_v2.html" -o forms_viewer_print_v2.html
-          curl -fsSL "https://raw.githubusercontent.com/alharbikh/my_doc/main/school_decisions_forms.html" -o school_decisions_forms.html
+          git clone --depth 1 https://github.com/alharbikh/my_doc.git /tmp/my_doc
+          cp /tmp/my_doc/employee_warning_form_v2.html ./employee_warning_form_v2.html
+          cp /tmp/my_doc/forms_viewer_print_v2.html ./forms_viewer_print_v2.html
+          cp /tmp/my_doc/school_decisions_forms.html ./school_decisions_forms.html
 
       - name: Commit copied files
         run: |
